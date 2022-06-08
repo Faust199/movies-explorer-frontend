@@ -1,0 +1,107 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile__title {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #000000;
+    margin: 236px 0 96px 0;
+    padding: 0;
+}
+
+.profile__container {
+    display: flex;
+    justify-content: space-between;
+    width: 410px;
+}
+
+.profile__label {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: #000000;
+}
+
+.profile__text {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: right;
+    color: #000000;
+}
+
+.profile__separator {
+    background-color: #E8E8E8;
+    margin: 16px 0 16px 0;
+    padding: 0;
+    height: 1px;
+    width: 410px;
+}
+
+.profile__edit {
+    margin-top: 210px;
+    margin-bottom: 16px;
+    border: none;
+    background-color: white;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
+}
+
+.profile__edit:hover {
+    opacity: 0.6;
+}
+
+.profile__exit {
+    border: none;
+    background-color: white;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #FF004D;
+    cursor: pointer;
+}
+
+.profile__exit:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 420px) {
+    .profile__title {
+        margin: 70px 0 80px 0;
+    }
+
+    .profile__separator {
+        width: 260px;
+    }
+
+    .profile__container {
+        width: 260px;
+    }
+
+    .profile__edit {
+        margin-top: 300px;
+        margin-bottom: 16px;
+    }
+}

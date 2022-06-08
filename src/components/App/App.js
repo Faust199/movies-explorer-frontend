@@ -4,6 +4,8 @@ import React from "react";
 import Main from "../Main/Main"
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import Movies from "../Movies/Movies";
+import Profile from "../Profile/Profile";
 
 function App() {
   return (
@@ -15,10 +17,12 @@ function App() {
             <Login />
         </Route>
         <Route path="/movies">
+            <Movies />
         </Route>
         <Route path="/saved-movies">
         </Route>
         <Route path="/profile">
+            <Profile />
         </Route>
         <Route exact path="/">
           <Main />

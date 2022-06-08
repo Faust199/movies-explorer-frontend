@@ -1,3 +1,156 @@
 .register {
+    display: flex;
+    justify-content: center;
+}
 
+.register__container {
+    display: flex;
+    flex-direction: column;
+    margin: 70px 0 70px 0;
+}
+
+.register__logo {
+    width: 38px;
+    height: 38px;
+    margin: 0 0 40px 0;
+}
+
+.register__title {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    margin: 0 0 40px 0;
+}
+
+.register__input-text {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #A0A0A0;
+    margin: 0 0 10px 0;
+}
+
+.register__input {
+    margin: 0 0 20px 0;
+    background: #F9F9F9;
+    border-radius: 8px;
+    width: 396px;
+    height: 46px;
+    border: none;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000000;
+    text-indent: 15px;
+    padding: 0;
+}
+
+.register__input-incorrect {
+    color: #FF3055;
+}
+
+.register__error {
+    margin: -10px 0 0 0;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #FF3055;
+    align-self: flex-start;
+}
+
+.register__button {
+    margin: 180px 0 16px 0;
+    padding: 0;
+    border: none;
+    width: 396px;
+    height: 45px;
+    background: #3456F3;
+    border-radius: 3px;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.register__button:hover {
+    opacity: 0.6;
+}
+
+.register__register {
+    align-self: center;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #A0A0A0;
+}
+
+.register__link {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #3456F3;
+    text-decoration: none;
+}
+
+.register__link:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 410px) {
+    .register__container {
+        align-items: center;
+    }
+
+    .register__logo {
+        margin: 0 0 50px 0;
+    }
+
+    .register__title {
+        margin: 0 0 80px 0;
+    }
+
+    .register__input-text {
+        align-self: flex-start;
+    }
+
+    .register__input {
+        width: 260px;
+        height: 46px;
+    }
+
+    .register__button {
+        margin: 267px 0 14px 0;
+        width: 260px;
+        height: 46px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .register__register {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .register__link {
+        font-size: 12px;
+        line-height: 15px;
+    }
 }
