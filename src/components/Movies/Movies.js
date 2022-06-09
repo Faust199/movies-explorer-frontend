@@ -8,6 +8,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import testImageOnePath from "../../images/testImage.svg"
 import testImageTwoPath from "../../images/testImage2.svg"
 import testImageThreePath from "../../images/testImage3.svg"
+import Preloader from "../Preloader/Preloader";
 
 function Movies() {
 
@@ -97,6 +98,7 @@ function Movies() {
         <div className={'movies'}>
             <Header />
             <SearchForm />
+            {/*<Preloader />*/}
             <MoviesCardList>
                 {movies.map((item) => (
                     <MoviesCard title={item.title} image={item.image} subtitle={item.subtitle} key={item._id}/>
