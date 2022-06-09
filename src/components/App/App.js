@@ -6,6 +6,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Movies from "../Movies/Movies";
 import Profile from "../Profile/Profile";
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Movies />
         </Route>
         <Route path="/saved-movies">
+            <SavedMovies />
         </Route>
         <Route path="/profile">
             <Profile />

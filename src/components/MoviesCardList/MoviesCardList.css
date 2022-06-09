@@ -1,0 +1,13 @@
+.moviescardlist {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 70px 70px 50px 70px;
+}
+
+@media screen and (max-width: 860px) {
+    .moviescardlist {
+        margin: 70px 30px 50px 30px;
+    }
+}
