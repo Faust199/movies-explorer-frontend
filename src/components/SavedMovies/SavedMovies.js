@@ -14,12 +14,14 @@ function SavedMovies() {
         title: 'В погоне за Бенкси',
         image: testImageThreePath,
         subtitle: '1ч42м',
-        _id: 15
+        _id: 15,
+        from: 'Удалить'
     },{
         title: '33 слова о дизайне',
         image: testImageOnePath,
         subtitle: '1ч42м',
-        _id: 16
+        _id: 16,
+        from: 'Удалить'
     }];
 
     return (
@@ -28,7 +30,7 @@ function SavedMovies() {
             <SearchForm />
             <MoviesCardList>
                 {movies.map((item) => (
-                    <MoviesCard title={item.title} image={item.image} subtitle={item.subtitle} key={item._id}/>
+                    <MoviesCard title={item.title} image={item.image} subtitle={item.subtitle} from={item.from} key={item._id}/>
                 ))}
             </MoviesCardList>
             <Footer />

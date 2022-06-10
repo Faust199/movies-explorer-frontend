@@ -10,11 +10,10 @@
 }
 
 .searchform__input {
-    border-color: #E8E8E8;
     margin: 80px 72px 83px 0;
     height: 48px;
-    border-width: 1px;
-    border-radius: 30px;
+    border: 1.5px solid rgba(170, 170, 170, 0.2);
+    border-radius: 50px;
     padding-left: 22px;
     flex-grow: 1;
     background-image: url('../../images/find.svg');

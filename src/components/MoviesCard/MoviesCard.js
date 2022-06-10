@@ -1,20 +1,41 @@
 import './MoviesCard.css'
 import React from 'react';
-import likeImageFillPath from '../../images/heartFill.svg'
 
 function MoviesCard(props) {
 
+    function createButton() {
+        if (props.from === 'Сохранить') {
+            return (
+                <button onClick={handleButtonClick} className={'moviescard__button'}>Сохранить</button>
+                );
+        } else if (props.from === 'Удалить') {
+            return (
+                <button onClick={handleButtonClick}  className={'moviescard__button moviescard__button_deleted'}/>
+            );
+        } else {
+            return (
+                <button onClick={handleButtonClick}  className={'moviescard__button moviescard__button_selected'} />
+            );
+        }
+    }
+
+    const handleButtonClick = (e) => {
+         if (props.from === 'Удалить') {
+        } else {
+             let isSelected = e.target.classList.contains('moviescard__button_selected');
+             const action = isSelected ? "remove" : "add";
+             e.target.classList[action]('moviescard__button_selected');
+        }
+    }
+
     return (
         <div className={'moviescard'}>
-            <img className={'moviescard__image'} src={props.image} alt={'Картинка'}/>
             <div className={'moviescard__container'}>
-                <h3 className={'moviescard__title'}>{props.title}</h3>
-                <div className={'moviescard__box'}>
-                    <img className={'moviescard__logo'} src={likeImageFillPath} alt={'Лого'}/>
-                </div>
+                <p className={'moviescard__title'}>{props.title}</p>
+                <p className={'moviescard__time'}>{props.subtitle}</p>
             </div>
-            <div className={'moviescard__separator'}/>
-            <p className={'moviescard__subtitle'}>{props.subtitle}</p>
+            <img src={props.image} className={'moviescard__image'} alt={'Picture'}/>
+            {createButton()}
         </div>
     );
 }

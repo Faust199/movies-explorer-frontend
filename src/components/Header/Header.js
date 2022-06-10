@@ -16,22 +16,20 @@ function Header() {
 
     return (
         <div className="header">
-            <img src={logoImagePath} className={'header__logo'} alt={'Лого'} onClick={() => {history.push("/");}}/>
+            <div className={'header__list'}>
+                <img src={logoImagePath} className={'header__logo'} alt={'Лого'} onClick={() => {history.push("/");}}/>
+                <div className={'header__films'}>
+                    <p className={'header__text-film'} onClick={() => {history.push("/movies");}}>Фильмы</p>
+                    <p className={'header__text-savefilm'} onClick={() => {history.push("/saved-movies");}}>Сохранённые фильмы</p>
+                </div>
+            </div>
+            <div className={'header__account'} onClick={() => {history.push("/profile");}}>
+                <p className={'header__text-account'}>Аккаунт</p>
+                <div className={'header__container'}>
+                    <img src={headerIconPath} alt={'Иконка'} className={'header__icon'}/>
+                </div>
+            </div>
             <label className={'header__hamburger'} onClick={() => {setIsMenuOpen(true)}}><span className={'header__hambline'}/></label>
-            <nav className={'header__navigation'}>
-                <ul className={'header__list'}>
-                    <li className={'header__films'}>
-                        <p className={'header__text-film'} onClick={() => {history.push("/movies");}}>Фильмы</p>
-                        <p className={'header__text-savefilm'} onClick={() => {history.push("/saved-movies");}}>Сохранённые фильмы</p>
-                    </li>
-                    <li className={'header__account'} onClick={() => {history.push("/profile");}}>
-                        <p className={'header__text-account'}>Аккаунт</p>
-                        <div className={'header__container'}>
-                            <img src={headerIconPath} alt={'Иконка'} className={'header__icon'}/>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
             <Navigation isOpen={isMenuOpen}
                         onClose={closeMenu}/>
         </div>
