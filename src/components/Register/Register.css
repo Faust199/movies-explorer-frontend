@@ -73,7 +73,7 @@
     border: none;
     width: 396px;
     height: 45px;
-    background: #3456F3;
+    background: #000000;
     border-radius: 3px;
     font-family: 'Inter', serif;
     font-style: normal;
@@ -106,7 +106,7 @@
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    color: #3456F3;
+    color: #000000;
     text-decoration: none;
 }
 

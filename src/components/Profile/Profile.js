@@ -1,7 +1,6 @@
 import './Profile.css'
 import React from 'react';
 import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 import {useHistory} from "react-router-dom";
 
 function Profile(props) {
@@ -25,7 +24,6 @@ function Profile(props) {
                 <button className={'profile__edit'}>Редактировать</button>
                 <button className={'profile__exit'} onClick={() => {history.push("/");}}>Выйти из аккаунта</button>
             </div>
-            <Footer/>
         </div>
     );
 }

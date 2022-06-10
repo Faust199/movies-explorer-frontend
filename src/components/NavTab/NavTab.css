@@ -1,15 +1,15 @@
 .navtab {
-    background-color: #000000;
-    min-height: 66px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-self: center;
     margin: 0;
     padding: 0;
 }
 
 .navtab__button {
-    margin-right: 40px;
-    background-color: #000000;
+    margin-right: 10px;
+    background: #E8E8E8;
+    border-radius: 10px;
     border: none;
     font-family: 'Inter', serif;
     font-style: normal;
@@ -20,21 +20,21 @@
     color: #FFFFFF;
     text-align: center;
     padding: 0;
-}
-
-.navtab__button:first-child {
-    margin-left: 20px;
+    width: 96px;
+    height: 36px;
 }
 
 .navtab__button:hover {
     opacity: 0.6;
 }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 450px) {
     .navtab__button {
-        margin-right: 24px;
-        font-size: 11px;
+        margin-right: 6px;
+        font-size: 10px;
         line-height: 16px;
         padding: 0;
+        width: 82px;
+        height: 26px;
     }
 }

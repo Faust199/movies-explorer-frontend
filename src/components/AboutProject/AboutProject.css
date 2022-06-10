@@ -81,7 +81,7 @@
 }
 
 .aboutproject__progresscontainer-backendbar {
-    background-color: #2BE080;
+    background-color: #000000;
     width: 228px;
     height: 36px;
     display: flex;
@@ -109,7 +109,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-    color: #000000;
+    color: #FFFFFF;
 }
 
 .aboutproject__progresscontainer-frontendbar {

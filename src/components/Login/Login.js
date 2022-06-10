@@ -1,6 +1,6 @@
 import './Login.css'
 import React from 'react';
-import protectedLogoPath from "../../images/protectedlogo.svg"
+import logoPath from "../../images/logo.svg"
 import {useHistory} from "react-router-dom";
 
 function Login() {
@@ -10,7 +10,7 @@ function Login() {
     return (
         <div className={'login'}>
             <div className={'login__container'}>
-                <img className={'login__logo'} src={protectedLogoPath} alt={'Лого'}/>
+                <img className={'login__logo'} src={logoPath} alt={'Лого'} onClick={() => {history.push("/");}}/>
                 <h2 className={'login__title'}>Рады видеть!</h2>
                 <p className={'login__input-text'}>E-mail</p>
                 <input className={'login__input'}/>
