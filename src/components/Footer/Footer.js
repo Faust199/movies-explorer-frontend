@@ -10,9 +10,9 @@ function Footer() {
             <div className={'footer__container'}>
                 <p className={'footer__link'}>© 2020</p>
                 <div className={'footer__social'}>
-                    <a className={'footer__link'} href={'https://practicum.yandex.ru/'}>Яндекс.Практикум</a>
-                    <a className={'footer__link'} href={'https://github.com/Faust199'}>Github</a>
-                    <a className={'footer__link'} href={'www.facebook.com'}>Facebook</a>
+                    <a className={'footer__link'} href={'https://practicum.yandex.ru/'} target="_blank">Яндекс.Практикум</a>
+                    <a className={'footer__link'} href={'https://github.com/Faust199'} target="_blank">Github</a>
+                    <a className={'footer__link'} href={'www.facebook.com'} target="_blank">Facebook</a>
                 </div>
             </div>
 

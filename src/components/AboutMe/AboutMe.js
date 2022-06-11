@@ -14,8 +14,8 @@ function AboutMe(props) {
                     <p className={'aboutme__description'}>Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
                         и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
                     <div className={'aboutme__social'}>
-                        <a className={'aboutme__link'} href={'www.facebook.com'}>Facebook</a>
-                        <a className={'aboutme__link'} href={'https://github.com/Faust199'}>Github</a>
+                        <a className={'aboutme__link'} href={'https://facebook.com'} target="_blank">Facebook</a>
+                        <a className={'aboutme__link'} href={'https://github.com/Faust199'} target="_blank">Github</a>
                     </div>
                 </div>
                 <div className={'aboutme__column'}>

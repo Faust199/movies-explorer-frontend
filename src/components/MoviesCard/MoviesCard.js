@@ -34,7 +34,7 @@ function MoviesCard(props) {
                 <p className={'moviescard__title'}>{props.title}</p>
                 <p className={'moviescard__time'}>{props.subtitle}</p>
             </div>
-            <img src={props.image} className={'moviescard__image'} alt={'Picture'}/>
+            <img src={props.image} className={'moviescard__image'} alt={'Картинка'}/>
             {createButton()}
         </div>
     );

@@ -7,7 +7,7 @@ function SearchForm() {
     return (
         <div className={'searchform'}>
             <div className={'searchform__container'}>
-                <input className={'searchform__input'} placeholder="Фильм"/>
+                <input className={'searchform__input'} placeholder="Фильм" required={true}/>
                 <FilterCheckbox />
             </div>
             <div className={'searchform__separator'}/>
