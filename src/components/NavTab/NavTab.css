@@ -1,0 +1,40 @@
+.navtab {
+    display: flex;
+    justify-content: flex-start;
+    align-self: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navtab__button {
+    margin-right: 10px;
+    background: #E8E8E8;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-decoration-line: underline;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0;
+    width: 96px;
+    height: 36px;
+}
+
+.navtab__button:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 450px) {
+    .navtab__button {
+        margin-right: 6px;
+        font-size: 10px;
+        line-height: 16px;
+        padding: 0;
+        width: 82px;
+        height: 26px;
+    }
+}

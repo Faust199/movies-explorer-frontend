@@ -1,0 +1,38 @@
+.filtercheckbox {
+    display: flex;
+    align-items: center;
+}
+
+.filtercheckbox__text {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #000000;
+    margin: 0 14px 0 0;
+}
+
+.filtercheckbox__switch {
+    width: 36px;
+    height: 20px;
+    box-shadow: 0 4px 4px rgba(50, 50, 71, 0.08),
+    0 4px 8px rgba(50, 50, 71, 0.06);
+    border-radius: 16px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.filtercheckbox__marker {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    border-radius: 45px;
+    background: #f5f5f5;
+    transition: transform 0.2s ease-in-out;
+}
+
+.filtercheckbox__switch-selected > .filtercheckbox__marker {
+    transform: translateX(16px);
+    background: #2be080;
+}

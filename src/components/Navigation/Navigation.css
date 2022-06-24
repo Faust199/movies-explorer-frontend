@@ -1,0 +1,124 @@
+.navigation {
+
+}
+
+.navigation__popup {
+    position: fixed;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    visibility: hidden;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.navigation__popup_transition {
+    transition: visibility .4s, opacity .4s linear;
+}
+
+.navigation__popup_is-open {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}
+
+.navigation__container {
+    height: 100%;
+    background-color: #FFFFFF;
+    width: 520px;
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation__menu {
+    height: 100%;
+    background-color: #FFFFFF;
+    width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navigation__close {
+    width: 28px;
+    height: 28px;
+    margin: 23px 23px 105px 0;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.navigation__close:hover {
+    opacity: 0.6;
+}
+
+.navigation__text {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #000000;
+    margin: 0 0 28px 0;
+    cursor: pointer;
+}
+
+.navigation__text:hover {
+    opacity: 0.6;
+}
+
+.navigation__text-account {
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+    margin-right: 17px;
+}
+
+.navigation__account {
+    display: flex;
+    text-decoration: none;
+    align-items: baseline;
+    margin: 620px 0 0 50px;
+    cursor: pointer;
+}
+
+.navigation__account:hover {
+    opacity: 0.6;
+}
+
+.navigation__container-account {
+    background: #F9F9F9;
+    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    margin: 0 70px 0 0;
+}
+
+.navigation__icon {
+    width: 11px;
+    height: 14px;
+    margin: 8px 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 520px) {
+    .navigation__container {
+        max-width: 320px;
+    }
+
+    .navigation__menu {
+        width: 320px;
+    }
+
+}
