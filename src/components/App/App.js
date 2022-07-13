@@ -7,29 +7,35 @@ import Register from "../Register/Register";
 import Movies from "../Movies/Movies";
 import Profile from "../Profile/Profile";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function App() {
-  return (
-      <Switch>
-        <Route path="/signup">
-            <Register />
-        </Route>
-        <Route path="/signin">
-            <Login />
-        </Route>
-        <Route path="/movies">
-            <Movies />
-        </Route>
-        <Route path="/saved-movies">
-            <SavedMovies />
-        </Route>
-        <Route path="/profile">
-            <Profile />
-        </Route>
-        <Route exact path="/">
-          <Main />
-        </Route>
-      </Switch>
+
+    const [currentUser, setCurrentUser] = React.useState({});
+
+    return (
+        <CurrentUserContext.Provider value={currentUser}>
+            <Switch>
+                <Route path="/signup">
+                    <Register/>
+                </Route>
+                <Route path="/signin">
+                    <Login/>
+                </Route>
+                <Route path="/movies">
+                    <Movies/>
+                </Route>
+                <Route path="/saved-movies">
+                    <SavedMovies/>
+                </Route>
+                <Route path="/profile">
+                    <Profile/>
+                </Route>
+                <Route exact path="/">
+                    <Main/>
+                </Route>
+            </Switch>
+        </CurrentUserContext.Provider>
   );
 }
 
