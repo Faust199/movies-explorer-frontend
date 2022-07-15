@@ -2,7 +2,7 @@ import './FilterCheckbox.css'
 import React from 'react';
 
 
-function FilterCheckbox() {
+function FilterCheckbox(props) {
 
     const SWITCH_SELECTED_CLASS = "filtercheckbox__switch-selected";
 
@@ -10,6 +10,7 @@ function FilterCheckbox() {
         let isSelected = e.target.classList.contains(SWITCH_SELECTED_CLASS);
         const action = isSelected ? "remove" : "add";
         e.target.classList[action](SWITCH_SELECTED_CLASS);
+        props.onSwitch(!isSelected);
     }
 
     return (

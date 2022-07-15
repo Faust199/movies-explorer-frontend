@@ -2,7 +2,7 @@ import {
     baseMovieUrl
 } from "./constants.js";
 
-class MainApi {
+class MoviesApi {
     constructor(baseUrl) {
         this._baseUrl = baseUrl;
     }
@@ -24,4 +24,4 @@ class MainApi {
     }
 }
 
-export const mainApi = new MainApi(baseMovieUrl);
+export const moviesApi = new MoviesApi(baseMovieUrl);

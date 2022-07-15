@@ -9,118 +9,118 @@ import testImageOnePath from "../../images/testImage.svg"
 import testImageTwoPath from "../../images/testImage2.svg"
 import testImageThreePath from "../../images/testImage3.svg"
 import Preloader from "../Preloader/Preloader";
+import {moviesApi} from "../../utils/MoviesApi";
 
 function Movies() {
 
-    const movies = [{
-        title: '33 слова о дизайне',
-        image: testImageOnePath,
-        subtitle: '1ч42м',
-        _id: 1,
-        from: 'Сохранить'
-    },{
-        title: 'Киноальманах «100 лет дизайна»',
-        image: testImageTwoPath,
-        subtitle: '1ч42м',
-        _id: 2,
-        from: 'Сохранить'
-    },{
-        title: 'В погоне за Бенкси',
-        image: testImageThreePath,
-        subtitle: '1ч42м',
-        _id: 3,
-        from: ''
-    },{
-        title: '33 слова о дизайне',
-        image: testImageOnePath,
-        subtitle: '1ч42м',
-        _id: 4,
-        from: ''
-    },{
-        title: 'Киноальманах «100 лет дизайна»',
-        image: testImageTwoPath,
-        subtitle: '1ч42м',
-        _id: 5,
-        from: ''
-    },{
-        title: 'В погоне за Бенкси',
-        image: testImageThreePath,
-        subtitle: '1ч42м',
-        _id: 6,
-        from: ''
-    },{
-        title: '33 слова о дизайне',
-        image: testImageOnePath,
-        subtitle: '1ч42м',
-        _id: 7,
-        from: ''
-    },{
-        title: 'Киноальманах «100 лет дизайна»',
-        image: testImageTwoPath,
-        subtitle: '1ч42м',
-        _id: 8,
-        from: 'Сохранить'
-    },{
-        title: 'В погоне за Бенкси',
-        image: testImageThreePath,
-        subtitle: '1ч42м',
-        _id: 9,
-        from: 'Сохранить'
-    },{
-        title: '33 слова о дизайне',
-        image: testImageOnePath,
-        subtitle: '1ч42м',
-        _id: 10,
-        from: 'Сохранить'
-    },{
-        title: 'Киноальманах «100 лет дизайна»',
-        image: testImageTwoPath,
-        subtitle: '1ч42м',
-        _id: 11,
-        from: 'Сохранить'
-    },{
-        title: 'В погоне за Бенкси',
-        image: testImageThreePath,
-        subtitle: '1ч42м',
-        _id: 12,
-        from: 'Сохранить'
-    },{
-        title: '33 слова о дизайне',
-        image: testImageOnePath,
-        subtitle: '1ч42м',
-        _id: 13,
-        from: 'Сохранить'
-    },{
-        title: 'Киноальманах «100 лет дизайна»',
-        image: testImageTwoPath,
-        subtitle: '1ч42м',
-        _id: 14,
-        from: 'Сохранить'
-    },{
-        title: 'В погоне за Бенкси',
-        image: testImageThreePath,
-        subtitle: '1ч42м',
-        _id: 15,
-        from: 'Сохранить'
-    },{
-        title: '33 слова о дизайне',
-        image: testImageOnePath,
-        subtitle: '1ч42м',
-        _id: 16,
-        from: 'Сохранить'
-    }];
+    const [movies, setMovies] = React.useState([]);
+    const [staticMovies, setStaticMovies] = React.useState([]);
+    const [filterMovies, setFilterMovies] = React.useState([]);
+    const [searchString, setSearchString] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
+    const [switchSelect, setSwitchSelect] = React.useState(false);
+    const [moreButtonVisible, setMoreButtonVisible] = React.useState(false);
+    let pageMoreButtonItemsCounter;
+    let startingItemsCount;
+    setMoreButtonItemsCounter();
+
+    React.useEffect(() => {
+        window.addEventListener('resize', () => {
+            setMoreButtonItemsCounter();
+        })
+    }, []);
+
+    function findMovies(searchText) {
+        setLoading(true);
+        setMovies([]);
+        setStaticMovies([]);
+        moviesApi.getMovies()
+            .then((res) => {
+                setLoading(false);
+                setStaticMovies(res);
+                setSearchString(searchText)
+                configureArray(res, switchSelect, searchText);
+            }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    function configureArray(res, isSelected, searchText) {
+        setMoreButtonVisible(true);
+        const filterArray = res.filter(el => {
+            if (isSelected === false) {
+                return el.nameRU.includes(searchText);
+            } else {
+                return el.duration < 60 && el.nameRU.includes(searchText);
+            }
+        });
+        const tempArray = [];
+        for (let i = 0; i < startingItemsCount; i++) {
+            if (i >= filterArray.length) {
+                setMoreButtonVisible(false);
+                break;
+            }
+            tempArray.push(filterArray[i]);
+        }
+        setFilterMovies(filterArray);
+        setMovies(tempArray);
+    }
+
+    function handleSwitch(isSelected) {
+        setSwitchSelect(isSelected);
+        configureArray(staticMovies, isSelected, searchString);
+    }
+
+    function handleMoreClick() {
+        const tempArray = [];
+        for (let i = movies.length; i < movies.length + pageMoreButtonItemsCounter; i++) {
+            if (i >= filterMovies.length) {
+                setMoreButtonVisible(false);
+                break;
+            }
+            tempArray.push(filterMovies[i]);
+        }
+        setMovies(currentArr => [...currentArr, ...tempArray]);
+    }
+
+    function setMoreButtonItemsCounter() {
+        console.log(window.innerWidth);
+        if (window.innerWidth > 1255) {
+            pageMoreButtonItemsCounter = 15;
+            startingItemsCount = 12;
+        } else if (window.innerWidth > 803 && window.innerWidth < 1255) {
+            pageMoreButtonItemsCounter = 2;
+            startingItemsCount = 8;
+        } else {
+            startingItemsCount = 5;
+            pageMoreButtonItemsCounter = 2;
+        }
+    }
 
     return (
         <div className={'movies'}>
             <Header />
-            <SearchForm />
-            {/*<Preloader />*/}
-            <MoviesCardList>
-                {movies.map((item) => (
-                    <MoviesCard title={item.title} image={item.image} subtitle={item.subtitle} from = {item.from} key={item._id}/>
-                ))}
-            </MoviesCardList>
-            <button className={'movies__more'}>Ещё</button>
+            <SearchForm onSwitch={handleSwitch} onFindClick = {findMovies}/>
+            {loading ?
+                <Preloader />
+                :
+                movies.length > 0
+                    ?
+                        <>
+                            <MoviesCardList movies={movies} />
+                            {moreButtonVisible ?
+                                <button className={'movies__more'} onClick={handleMoreClick}>Ещё</button>
+                                :
+                                ""
+                            }
+                        </>
+                    :
+                    searchString.length > 0
+                        ?
+                        <p className={'movies__empty'}>Ничего не удалось найти</p>
+                        :
+                        ''
+            }
             <Footer />
         </div>
     );
