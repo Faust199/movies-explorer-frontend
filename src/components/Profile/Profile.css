@@ -70,6 +70,28 @@
     opacity: 0.6;
 }
 
+.profile__cancel {
+    margin-top: 210px;
+    margin-bottom: 16px;
+    border: none;
+    background-color: white;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
+    align-self: center;
+}
+
+.profile__cancel:hover {
+    opacity: 0.6;
+}
+
 .profile__exit {
     border: none;
     background-color: white;
@@ -81,6 +103,12 @@
     text-align: center;
     color: #FF004D;
     cursor: pointer;
+}
+
+.profile__form {
+    display: flex;
+    flex-direction: column;
+    margin: 70px 0 70px 0;
 }
 
 .profile__exit:hover {

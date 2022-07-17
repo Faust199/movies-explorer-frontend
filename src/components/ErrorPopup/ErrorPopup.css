@@ -1,0 +1,106 @@
+.popup {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.popup__box {
+    width: 430px;
+    position: relative;
+    background: #FFFFFF;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+    min-height: 390px;
+}
+
+.popup_is-open {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup_transition {
+    transition: visibility .4s, opacity .4s linear;
+}
+
+.popup__close-button {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    background-image: url("../../images/close-button.svg");
+    background-repeat: no-repeat;
+    background-color: initial;
+    border: none;
+    top: -40px;
+    right: -40px;
+    cursor: pointer;
+}
+
+.popup__close-button:hover {
+    opacity: 0.6;
+}
+
+.popup__title {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    margin: 34px 0 0 36px;
+    padding: 0;
+}
+
+.popup__tooltip-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup__tooltip-image {
+    width: 120px;
+    height: 120px;
+    margin: 60px 0 0 0;
+    padding: 0;
+}
+
+.popup__tooltip-title {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #000000;
+    margin: 32px 36px 60px 36px;
+    padding: 0;
+}
+
+@media screen and (max-width: 980px) {
+    .popup__box {
+        width: 282px;
+        min-height: 360px;
+    }
+
+    .popup__close-button {
+        width: 20px;
+        height: 20px;
+        background-image: url("../../images/close-button-small.svg");
+        background-repeat: no-repeat;
+        right: 0;
+    }
+
+    .popup__title {
+        font-size: 18px;
+        line-height: 22px;
+        margin: 25px 22px 0 22px;
+    }
+}
