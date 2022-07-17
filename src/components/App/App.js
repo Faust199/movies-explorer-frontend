@@ -24,18 +24,27 @@ function App() {
     React.useEffect(() => {
         mainApi.getUser(localStorage.getItem("token"))
             .then(res => {
-                setCurrentUserData({
-                    user: res.user,
-                    films: [],
-                    userFilms: [],
-                    searchString: '',
-                    filter: false,
-                    staticMovies: [],
-                    filterMovies: [],
-                    moreButtonVisible: false
-                });
-                setIsLoggedIn(true);
-                history.push("/movies");
+                const user = res.user;
+                mainApi.getMovies(localStorage.getItem("token"))
+                    .then(res => {
+                        setCurrentUserData({
+                            user: user,
+                            films: [],
+                            userFilms: res.movies,
+                            searchString: '',
+                            filter: false,
+                            staticMovies: [],
+                            filterMovies: [],
+                            moreButtonVisible: false
+                        });
+                        setIsLoggedIn(true);
+                        history.push("/movies");
+                    })
+                    .catch(err => {
+                        localStorage.removeItem("token");
+                        setIsLoggedIn(false);
+                        history.push('/')
+                    })
             })
             .catch(err => {
                 localStorage.removeItem("token");
@@ -50,19 +59,8 @@ function App() {
                 const user = res.user;
                 mainApi.signIn(password, email)
                     .then(res => {
-                        setCurrentUserData({
-                            user: user,
-                            films: [],
-                            userFilms: [],
-                            searchString: '',
-                            filter: false,
-                            staticMovies: [],
-                            filterMovies: [],
-                            moreButtonVisible: false
-                        });
-                        localStorage.setItem("token", res.token);
-                        setIsLoggedIn(true);
-                        history.push("/movies");
+                        const token = res.token;
+                        getSavedMovies(token, user);
                     })
                     .catch(err => {
                         setIsErrorPopupOpen(true);
@@ -80,19 +78,8 @@ function App() {
                 const token = res.token;
                 mainApi.getUser(token)
                     .then(res => {
-                        setCurrentUserData({
-                            user: res.user,
-                            films: [],
-                            userFilms: [],
-                            searchString: '',
-                            filter: false,
-                            staticMovies: [],
-                            filterMovies: [],
-                            moreButtonVisible: false
-                        });
-                        localStorage.setItem("token", token);
-                        setIsLoggedIn(true);
-                        history.push("/movies");
+                        const user = res.user;
+                        getSavedMovies(token, user);
                     })
                     .catch(err => {
                         setIsErrorPopupOpen(true);
@@ -102,6 +89,29 @@ function App() {
             setIsErrorPopupOpen(true);
             setPopupErrorMessage(`УПС произошла ошибка ${err} введите корректные данные`);
         })
+    }
+
+    function getSavedMovies(token, user) {
+        mainApi.getMovies(token)
+            .then(res => {
+                setCurrentUserData({
+                    user: user,
+                    films: [],
+                    userFilms: res.movies,
+                    searchString: '',
+                    filter: false,
+                    staticMovies: [],
+                    filterMovies: [],
+                    moreButtonVisible: false
+                });
+                localStorage.setItem("token", token);
+                setIsLoggedIn(true);
+                history.push("/movies");
+            })
+            .catch(err => {
+                setIsErrorPopupOpen(true);
+                setPopupErrorMessage(`УПС произошла ошибка ${err} введите корректные данные`);
+            })
     }
 
     function handleLogOut() {

@@ -4,14 +4,9 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MoviesCard from "../MoviesCard/MoviesCard";
-import testImageOnePath from "../../images/testImage.svg"
-import testImageTwoPath from "../../images/testImage2.svg"
-import testImageThreePath from "../../images/testImage3.svg"
 import Preloader from "../Preloader/Preloader";
 import {moviesApi} from "../../utils/MoviesApi";
 import {CurrentUserDataContext} from "../../contexts/CurrentUserDataContext";
-
 
 function Movies() {
 
@@ -31,10 +26,7 @@ function Movies() {
         window.addEventListener('resize', () => {
             setMoreButtonItemsCounter();
         })
-
-
-
-    }, []);
+    });
 
     function findMovies(searchText) {
         userData.searchString = searchText;
@@ -60,7 +52,7 @@ function Movies() {
             if (isSelected === false) {
                 return el.nameRU.includes(searchText);
             } else {
-                return el.duration < 60 && el.nameRU.includes(searchText);
+                return el.duration < 40 && el.nameRU.includes(searchText);
             }
         });
         const tempArray = [];
@@ -99,7 +91,6 @@ function Movies() {
     }
 
     function setMoreButtonItemsCounter() {
-        console.log(window.innerWidth);
         if (window.innerWidth > 1255) {
             pageMoreButtonItemsCounter = 15;
             startingItemsCount = 12;
