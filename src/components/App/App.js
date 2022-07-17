@@ -7,14 +7,12 @@ import Register from "../Register/Register";
 import Movies from "../Movies/Movies";
 import Profile from "../Profile/Profile";
 import SavedMovies from "../SavedMovies/SavedMovies";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { CurrentUserDataContext, defaultUserData } from "../../contexts/CurrentUserDataContext";
 
 function App() {
 
-    const [currentUser, setCurrentUser] = React.useState({});
-
     return (
-        <CurrentUserContext.Provider value={currentUser}>
+        <CurrentUserDataContext.Provider value={defaultUserData}>
             <Switch>
                 <Route path="/signup">
                     <Register/>
@@ -35,7 +33,7 @@ function App() {
                     <Main/>
                 </Route>
             </Switch>
-        </CurrentUserContext.Provider>
+        </CurrentUserDataContext.Provider>
   );
 }
 

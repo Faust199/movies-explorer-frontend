@@ -16,7 +16,7 @@ function FilterCheckbox(props) {
     return (
         <div className={'filtercheckbox'}>
             <p className={'filtercheckbox__text'}>Короткометражки</p>
-            <div className={"filtercheckbox__switch"} id={"my-switch"} onClick={handleSwitch}>
+            <div className={props.switchSelected ? `filtercheckbox__switch ${SWITCH_SELECTED_CLASS}` : 'filtercheckbox__switch'} id={"my-switch"} onClick={handleSwitch}>
                 <div className={"filtercheckbox__marker"} />
             </div>
         </div>

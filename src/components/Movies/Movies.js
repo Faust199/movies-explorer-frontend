@@ -10,16 +10,19 @@ import testImageTwoPath from "../../images/testImage2.svg"
 import testImageThreePath from "../../images/testImage3.svg"
 import Preloader from "../Preloader/Preloader";
 import {moviesApi} from "../../utils/MoviesApi";
+import {CurrentUserDataContext} from "../../contexts/CurrentUserDataContext";
+
 
 function Movies() {
 
-    const [movies, setMovies] = React.useState([]);
-    const [staticMovies, setStaticMovies] = React.useState([]);
-    const [filterMovies, setFilterMovies] = React.useState([]);
-    const [searchString, setSearchString] = React.useState([]);
+    const userData = React.useContext(CurrentUserDataContext);
+    const [movies, setMovies] = React.useState(userData.films);
+    const [staticMovies, setStaticMovies] = React.useState(userData.staticMovies);
+    const [filterMovies, setFilterMovies] = React.useState(userData.filterMovies);
+    const [searchString, setSearchString] = React.useState(userData.searchString);
     const [loading, setLoading] = React.useState(false);
-    const [switchSelect, setSwitchSelect] = React.useState(false);
-    const [moreButtonVisible, setMoreButtonVisible] = React.useState(false);
+    const [switchSelect, setSwitchSelect] = React.useState(userData.filter);
+    const [moreButtonVisible, setMoreButtonVisible] = React.useState(userData.moreButtonVisible);
     let pageMoreButtonItemsCounter;
     let startingItemsCount;
     setMoreButtonItemsCounter();
@@ -28,15 +31,20 @@ function Movies() {
         window.addEventListener('resize', () => {
             setMoreButtonItemsCounter();
         })
+
+
+
     }, []);
 
     function findMovies(searchText) {
+        userData.searchString = searchText;
         setLoading(true);
         setMovies([]);
         setStaticMovies([]);
         moviesApi.getMovies()
             .then((res) => {
                 setLoading(false);
+                userData.staticMovies = res;
                 setStaticMovies(res);
                 setSearchString(searchText)
                 configureArray(res, switchSelect, searchText);
@@ -47,6 +55,7 @@ function Movies() {
 
     function configureArray(res, isSelected, searchText) {
         setMoreButtonVisible(true);
+        userData.moreButtonVisible = true;
         const filterArray = res.filter(el => {
             if (isSelected === false) {
                 return el.nameRU.includes(searchText);
@@ -58,15 +67,19 @@ function Movies() {
         for (let i = 0; i < startingItemsCount; i++) {
             if (i >= filterArray.length) {
                 setMoreButtonVisible(false);
+                userData.moreButtonVisible = false;
                 break;
             }
             tempArray.push(filterArray[i]);
         }
+        userData.filterMovies = filterArray;
         setFilterMovies(filterArray);
+        userData.films = tempArray;
         setMovies(tempArray);
     }
 
     function handleSwitch(isSelected) {
+        userData.filter = isSelected;
         setSwitchSelect(isSelected);
         configureArray(staticMovies, isSelected, searchString);
     }
@@ -76,10 +89,12 @@ function Movies() {
         for (let i = movies.length; i < movies.length + pageMoreButtonItemsCounter; i++) {
             if (i >= filterMovies.length) {
                 setMoreButtonVisible(false);
+                userData.moreButtonVisible = false;
                 break;
             }
             tempArray.push(filterMovies[i]);
         }
+        userData.films = [...movies, ...tempArray];
         setMovies(currentArr => [...currentArr, ...tempArray]);
     }
 
@@ -100,7 +115,7 @@ function Movies() {
     return (
         <div className={'movies'}>
             <Header />
-            <SearchForm onSwitch={handleSwitch} onFindClick = {findMovies}/>
+            <SearchForm switchSelected= {userData.filter} onSwitch={handleSwitch} onFindClick = {findMovies} searchText = {userData.searchString}/>
             {loading ?
                 <Preloader />
                 :

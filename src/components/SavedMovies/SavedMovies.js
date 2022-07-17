@@ -10,29 +10,29 @@ import testImageThreePath from "../../images/testImage3.svg"
 
 function SavedMovies() {
 
-    const movies = [{
-        title: 'В погоне за Бенкси',
-        image: testImageThreePath,
-        subtitle: '1ч42м',
-        _id: 15,
-        from: 'Удалить'
-    },{
-        title: '33 слова о дизайне',
-        image: testImageOnePath,
-        subtitle: '1ч42м',
-        _id: 16,
-        from: 'Удалить'
-    }];
+    // const movies = [{
+    //     title: 'В погоне за Бенкси',
+    //     image: testImageThreePath,
+    //     subtitle: '1ч42м',
+    //     _id: 15,
+    //     from: 'Удалить'
+    // },{
+    //     title: '33 слова о дизайне',
+    //     image: testImageOnePath,
+    //     subtitle: '1ч42м',
+    //     _id: 16,
+    //     from: 'Удалить'
+    // }];
 
     return (
         <div className={'savedmovies'}>
             <Header />
             <SearchForm />
-            <MoviesCardList>
-                {movies.map((item) => (
-                    <MoviesCard title={item.title} image={item.image} subtitle={item.subtitle} from={item.from} key={item._id}/>
-                ))}
-            </MoviesCardList>
+            {/*<MoviesCardList>*/}
+            {/*    {movies.map((item) => (*/}
+            {/*        <MoviesCard title={item.title} image={item.image} subtitle={item.subtitle} from={item.from} key={item._id}/>*/}
+            {/*    ))}*/}
+            {/*</MoviesCardList>*/}
             <Footer />
         </div>
     );
