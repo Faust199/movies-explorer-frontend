@@ -74,7 +74,7 @@ function Login(props) {
                     {formik.errors.password ? <span className={'login__error'} hidden={false}>{formik.errors.password}</span> : null}
                     <button className={'login__button'} type={'submit'} style={{background: buttonColor}}>Войти</button>
                 </form>
-                <p className={'login__register'}>Ещё не зарегистрированы?<a className={"login__link"} href="/signup"> Регистрация</a></p>
+                <p className={'login__register'}>Ещё не зарегистрированы?<a className={"login__link"} onClick={() => {history.push("/signup");}}> Регистрация</a></p>
             </div>
         </div>
     );

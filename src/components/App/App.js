@@ -175,9 +175,11 @@ function App() {
     function deleteMovie(item) {
         mainApi.removeMovie(localStorage.getItem("token"),item._id)
             .then(res => {
+
                 const tempArr = [...currentUserData.userFilms].filter(el => {
                     return el._id !== item._id
                 })
+
                 const tempFilms = [];
                 currentUserData.films.forEach(el => {
                     if (el.id === item.movieId) {
@@ -208,12 +210,14 @@ function App() {
                         tempStaticMovies.push(el)
                     }
                 });
+
                 setCurrentUserData(oldUserData => Object.assign({}, oldUserData, {
                     userFilms: tempArr,
                     films: tempFilms,
                     filterMovies: tempFilterMovies,
                     staticMovies: tempStaticMovies
                 }));
+
             })
             .catch(err => {
                 setIsErrorPopupOpen(true);
@@ -265,7 +269,6 @@ function App() {
                 <ProtectedRoute path="/saved-movies"
                                 isLoggedIn={isLoggedIn}
                                 onDeleteMovie={deleteMovie}
-                                movies={currentUserData.userFilms}
                                 component={SavedMovies}
                 />
                 <ProtectedRoute path="/profile"

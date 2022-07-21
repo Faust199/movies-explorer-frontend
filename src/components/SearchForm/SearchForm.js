@@ -8,9 +8,7 @@ const SearchForm = (props) => {
     const [searchText, setSearchText] = React.useState(props.searchText);
 
     function handleClick() {
-        if (searchText.length > 0) {
-            props.onFindClick(searchText);
-        }
+        props.onFindClick(searchText);
     }
 
     return (

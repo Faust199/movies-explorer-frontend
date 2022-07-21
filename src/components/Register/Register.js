@@ -91,7 +91,7 @@ const Register = (props) => {
                     {formik.errors.password ? <span className={'register__error'} hidden={false}>{formik.errors.password}</span> : null}
                     <button className={'register__button'} type={'submit'} style={{background: buttonColor}}>Зарегистрироваться</button>
                 </form>
-                <p className={'register__register'}>Уже зарегистрированы?<a className={"register__link"} href="/signin"> Войти</a></p>
+                <p className={'register__register'}>Уже зарегистрированы?<a className={"register__link"} onClick={() => {history.push("/signin")}}> Войти</a></p>
             </div>
         </div>
     );
