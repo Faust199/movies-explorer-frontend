@@ -8,7 +8,7 @@ import Preloader from "../Preloader/Preloader";
 import {moviesApi} from "../../utils/MoviesApi";
 import {CurrentUserDataContext} from "../../contexts/CurrentUserDataContext";
 
-function Movies() {
+function Movies(props) {
 
     const userData = React.useContext(CurrentUserDataContext);
     const [movies, setMovies] = React.useState(userData.films);
@@ -18,6 +18,7 @@ function Movies() {
     const [loading, setLoading] = React.useState(false);
     const [switchSelect, setSwitchSelect] = React.useState(userData.filter);
     const [moreButtonVisible, setMoreButtonVisible] = React.useState(userData.moreButtonVisible);
+
     let pageMoreButtonItemsCounter;
     let startingItemsCount;
     setMoreButtonItemsCounter();
@@ -36,10 +37,23 @@ function Movies() {
         moviesApi.getMovies()
             .then((res) => {
                 setLoading(false);
-                userData.staticMovies = res;
-                setStaticMovies(res);
+                const moviesWithUserSaveProp = [];
+                res.forEach((movie, index) => {
+                    let saved = false;
+                    userData.userFilms.forEach((userMovie, index) => {
+                        if (userMovie.movieId === movie.id) {
+                            saved = true;
+                        }
+                    });
+
+                    const correctMovie = Object.assign(movie, {'saved': saved});
+                    moviesWithUserSaveProp.push(correctMovie);
+                });
+
+                userData.staticMovies = moviesWithUserSaveProp;
+                setStaticMovies(moviesWithUserSaveProp);
                 setSearchString(searchText)
-                configureArray(res, switchSelect, searchText);
+                configureArray(moviesWithUserSaveProp, switchSelect, searchText);
             }).catch(err => {
             console.log(err);
         });
@@ -113,7 +127,7 @@ function Movies() {
                 movies.length > 0
                     ?
                         <>
-                            <MoviesCardList movies={movies} />
+                            <MoviesCardList movies={movies} from={'Movies'} onSaveMovie={props.onSaveMovie}/>
                             {moreButtonVisible ?
                                 <button className={'movies__more'} onClick={handleMoreClick}>Ещё</button>
                                 :

@@ -4,35 +4,23 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MoviesCard from "../MoviesCard/MoviesCard";
-import testImageOnePath from "../../images/testImage.svg"
-import testImageThreePath from "../../images/testImage3.svg"
 
-function SavedMovies() {
+function SavedMovies(props) {
 
-    // const movies = [{
-    //     title: 'В погоне за Бенкси',
-    //     image: testImageThreePath,
-    //     subtitle: '1ч42м',
-    //     _id: 15,
-    //     from: 'Удалить'
-    // },{
-    //     title: '33 слова о дизайне',
-    //     image: testImageOnePath,
-    //     subtitle: '1ч42м',
-    //     _id: 16,
-    //     from: 'Удалить'
-    // }];
+
+    function handleSwitch(isSelected) {
+
+    }
+
+    function findMovies(searchText) {
+
+    }
 
     return (
         <div className={'savedmovies'}>
             <Header />
-            <SearchForm />
-            {/*<MoviesCardList>*/}
-            {/*    {movies.map((item) => (*/}
-            {/*        <MoviesCard title={item.title} image={item.image} subtitle={item.subtitle} from={item.from} key={item._id}/>*/}
-            {/*    ))}*/}
-            {/*</MoviesCardList>*/}
+            <SearchForm switchSelected= {false} onSwitch={handleSwitch} onFindClick = {findMovies} />
+            <MoviesCardList movies={props.movies} from={'SavedMovies'} onDeleteMovie={props.onDeleteMovie}/>
             <Footer />
         </div>
     );
