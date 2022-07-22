@@ -3,12 +3,22 @@ import React from 'react';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 
-function SearchForm() {
+const SearchForm = (props) => {
+
+    const [searchText, setSearchText] = React.useState(props.searchText);
+
+    function handleClick() {
+        props.onFindClick(searchText);
+    }
+
     return (
         <div className={'searchform'}>
             <div className={'searchform__container'}>
-                <input className={'searchform__input'} placeholder="Фильм" required={true}/>
-                <FilterCheckbox />
+                <div className={'searchform__box'}>
+                    <input className={'searchform__input'} value={searchText} placeholder="Фильм" required={true} onChange={(e) => {setSearchText(e.target.value)}}/>
+                    <button className={'searchform__button'} onClick={handleClick}>Найти</button>
+                </div>
+                <FilterCheckbox switchSelected={props.switchSelected} onSwitch={props.onSwitch}/>
             </div>
             <div className={'searchform__separator'}/>
         </div>

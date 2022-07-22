@@ -7,7 +7,7 @@ import AboutMe from "../AboutMe/AboutMe";
 import Footer from "../Footer/Footer";
 import Portfolio from "../Portfolio/Portfolio";
 
-function Main() {
+function Main(props) {
 
     const aboutProjectRef = useRef();
     const techsRef = useRef();
@@ -15,7 +15,7 @@ function Main() {
 
     return (
         <div>
-            <Promo aboutProjectRef={aboutProjectRef} techsRef={techsRef} aboutMeRef={aboutMeRef}/>
+            <Promo isLoggedIn={props.isLoggedIn} aboutProjectRef={aboutProjectRef} techsRef={techsRef} aboutMeRef={aboutMeRef}/>
             <AboutProject aboutProjectRef={aboutProjectRef} />
             <Techs techsRef={techsRef} />
             <AboutMe aboutMeRef={aboutMeRef} />

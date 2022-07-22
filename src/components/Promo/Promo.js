@@ -13,8 +13,18 @@ function Promo(props) {
             <div className={'promo__header'}>
                 <img src={logoImagePath} alt={'Логотип'} className={'promo__logo'} onClick={() => {history.push("/");}}/>
                 <div className={'promo__button-container'}>
-                    <button className={'promo__register'} onClick={() => {history.push("/signup");}}>Регистрация</button>
-                    <button className={'promo__enter'} onClick={() => {history.push("/signin");}}>Войти</button>
+                    {props.isLoggedIn
+                        ?
+                        <>
+                            <button className={'promo__register'} onClick={() => {history.push("/movies");}}>Фильмы</button>
+                            <button className={'promo__register'} onClick={() => {history.push("/saved-movies");}}>Сохраненные Фильмы</button>
+                        </>
+                        :
+                        <>
+                            <button className={'promo__register'} onClick={() => {history.push("/signup");}}>Регистрация</button>
+                            <button className={'promo__enter'} onClick={() => {history.push("/signin");}}>Войти</button>
+                        </>
+                    }
                 </div>
             </div>
             <div className={'promo__container'}>

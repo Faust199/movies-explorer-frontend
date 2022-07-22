@@ -6,10 +6,11 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "formik": "^2.2.9",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-scripts": "5.0.1",
     "react-router-dom": "^5.2.1",
+    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -17,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* polnikita199@130.193.55.233:/home/polnikita199/movies-explorer-frontend"
+    "deploy": "npm run build && scp -r ./build/* polnikita199@158.160.7.140:/home/polnikita199/movies-explorer-frontend"
   },
   "eslintConfig": {
     "extends": [
