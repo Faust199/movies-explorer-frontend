@@ -25,16 +25,16 @@ function Movies(props) {
 
     React.useEffect(() => {
 
-        window.addEventListener('resize', () => {
+        const resizeEvent = () => {
             setMoreButtonItemsCounter();
-        })
+        }
+
+        window.addEventListener('resize', resizeEvent)
 
         return () => {
-            window.removeEventListener('resize',() => {
-                setMoreButtonItemsCounter();
-            });
+            window.removeEventListener('resize',resizeEvent);
         };
-    });
+    }, []);
 
     function findMovies(searchText) {
         userData.searchString = searchText;
@@ -89,6 +89,7 @@ function Movies(props) {
         setFilterMovies(filterArray);
         userData.films = tempArray;
         setMovies(tempArray);
+        localStorage.setItem('userData',JSON.stringify(userData));
     }
 
     function handleSwitch(isSelected) {

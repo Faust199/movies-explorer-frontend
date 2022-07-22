@@ -10,6 +10,7 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import SuccessPopup from "../SuccessPopup/SuccessPopup"
 import ProtectedRoute from "../Routes/ProtectedRoute";
+import ErrorPage from  "../ErrorPage/ErrorPage"
 
 import { CurrentUserDataContext } from "../../contexts/CurrentUserDataContext";
 import { mainApi } from "../../utils/MainApi";
@@ -17,6 +18,7 @@ import { mainApi } from "../../utils/MainApi";
 function App() {
 
     const history = useHistory();
+    const [isCheckedAuth, setIsCheckedAuth] = React.useState(false);
     const [isErrorPopupOpen, setIsErrorPopupOpen] = React.useState(false);
     const [isSuccessPopupOpen, setIsSuccessPopupOpen] = React.useState(false);
     const [popupErrorMessage, setPopupErrorMessage] = React.useState('');
@@ -25,36 +27,47 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
     React.useEffect(() => {
-        if (localStorage.getItem("token")) {
+        const routesArray = ['/','/signup', '/signin', '/movies', '/saved-movies', '/profile']
+        if (localStorage.getItem("token") && routesArray.indexOf(window.location.pathname) >= 0) {
             mainApi.getUser(localStorage.getItem("token"))
                 .then(res => {
                     const user = res.user;
                     mainApi.getMovies(localStorage.getItem("token"))
                         .then(res => {
-                            setCurrentUserData({
-                                user: user,
-                                films: [],
-                                userFilms: res.movies,
-                                searchString: '',
-                                filter: false,
-                                staticMovies: [],
-                                filterMovies: [],
-                                moreButtonVisible: false
-                            });
+                            if (localStorage.getItem('userData')) {
+                                setCurrentUserData(JSON.parse(localStorage.getItem('userData')));
+                            } else {
+                                setCurrentUserData({
+                                    user: user,
+                                    films: [],
+                                    userFilms: res.movies,
+                                    searchString: '',
+                                    filter: false,
+                                    staticMovies: [],
+                                    filterMovies: [],
+                                    moreButtonVisible: false
+                                });
+                            }
                             setIsLoggedIn(true);
-                            history.push("/movies");
+                            setIsCheckedAuth(true);
                         })
                         .catch(err => {
                             localStorage.removeItem("token");
+                            localStorage.removeItem("userData");
                             setIsLoggedIn(false);
+                            setIsCheckedAuth(true);
                             history.push('/')
                         })
                 })
                 .catch(err => {
                     localStorage.removeItem("token");
+                    localStorage.removeItem("userData");
                     setIsLoggedIn(false);
+                    setIsCheckedAuth(true);
                     history.push('/')
                 })
+        } else {
+            setIsCheckedAuth(true);
         }
     }, []);
 
@@ -164,6 +177,12 @@ function App() {
                     filterMovies: tempFilterMovies,
                     staticMovies: tempStaticMovies
                 }));
+                localStorage.setItem('userData',JSON.stringify(Object.assign({}, currentUserData, {
+                    userFilms: tempArr,
+                    films: tempFilms,
+                    filterMovies: tempFilterMovies,
+                    staticMovies: tempStaticMovies
+                })));
             })
             .catch(err => {
                 setIsErrorPopupOpen(true);
@@ -220,7 +239,12 @@ function App() {
                     filterMovies: tempFilterMovies,
                     staticMovies: tempStaticMovies
                 }));
-
+                localStorage.setItem('userData',JSON.stringify(Object.assign({}, currentUserData, {
+                    userFilms: tempArr,
+                    films: tempFilms,
+                    filterMovies: tempFilterMovies,
+                    staticMovies: tempStaticMovies
+                })));
             })
             .catch(err => {
                 setIsErrorPopupOpen(true);
@@ -273,6 +297,12 @@ function App() {
                     filterMovies: tempFilterMovies,
                     staticMovies: tempStaticMovies
                 }));
+                localStorage.setItem('userData',JSON.stringify(Object.assign({}, currentUserData, {
+                    userFilms: tempArr,
+                    films: tempFilms,
+                    filterMovies: tempFilterMovies,
+                    staticMovies: tempStaticMovies
+                })));
 
             })
             .catch(err => {
@@ -283,6 +313,7 @@ function App() {
 
     function handleLogOut() {
         localStorage.removeItem("token");
+        localStorage.removeItem("userData");
         setIsLoggedIn(false);
         history.push("/");
     }
@@ -297,6 +328,10 @@ function App() {
                             user: res.user
                         }
                     ));
+                    localStorage.setItem('userData',JSON.stringify({
+                        ...currentUserData,
+                        user: res.user
+                    }));
                     setIsSuccessPopupOpen(true);
                     setPopupSuccessMessage(`Вы успешно обновили информацию`);
                     history.push('/movies');
@@ -333,23 +368,27 @@ function App() {
                                 onSaveMovie={saveMovie}
                                 onDeleteMovie={deleteMovieTemp}
                                 component={Movies}
+                                isCheckedAuth={isCheckedAuth}
                 />
                 <ProtectedRoute path="/saved-movies"
                                 isLoggedIn={isLoggedIn}
                                 onDeleteMovie={deleteMovie}
                                 component={SavedMovies}
+                                isCheckedAuth={isCheckedAuth}
                 />
                 <ProtectedRoute path="/profile"
                                 isLoggedIn={isLoggedIn}
                                 onLogOut={handleLogOut}
                                 onUserUpdate={handleUserUpdate}
                                 component={Profile}
+                                isCheckedAuth={isCheckedAuth}
                 />
                 <Route exact path="/">
                     <Main
                         isLoggedIn={isLoggedIn}
                     />
                 </Route>
+                <Route path="*" component={ErrorPage}/>
             </Switch>
             <ErrorPopup
                 onClose={closeErrorPopup}
