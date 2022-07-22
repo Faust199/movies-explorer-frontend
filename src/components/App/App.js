@@ -119,60 +119,113 @@ function App() {
     }
 
     function saveMovie(item, e) {
-        if (item.saved) {
-            setIsErrorPopupOpen(true);
-            setPopupErrorMessage(`Данный фильм уже в вашей коллекции`);
-        } else {
-            mainApi.saveMovie(localStorage.getItem("token"), item.country, item.director, item.duration, item.year, item.description, `https://api.nomoreparties.co${item.image.url}`, item.trailerLink ? item.trailerLink : "https://item.trailerLink", `https://api.nomoreparties.co${item.image.url}`, item.id, item.nameRU, item.nameEN ? item.nameEN : "item.nameEN")
-                .then(res => {
-                    e.target.innerText = "";
-                    e.target.classList.add('moviescard__button_selected');
-                    const tempArr = [...currentUserData.userFilms];
-                    tempArr.push(res.movie);
-                    const tempFilms = [];
+        mainApi.saveMovie(localStorage.getItem("token"), item.country, item.director, item.duration, item.year, item.description, `https://api.nomoreparties.co${item.image.url}`, item.trailerLink ? item.trailerLink : "https://item.trailerLink", `https://api.nomoreparties.co${item.image.url}`, item.id, item.nameRU, item.nameEN ? item.nameEN : "item.nameEN")
+            .then(res => {
+                e.target.innerText = "";
+                e.target.classList.add('moviescard__button_selected');
+                const tempArr = [...currentUserData.userFilms];
+                tempArr.push(res.movie);
+                const tempFilms = [];
 
-                    currentUserData.films.forEach(el => {
-                        if (el.id === item.id) {
-                            tempFilms.push(Object.assign({}, el, {
-                                saved: true
-                            }))
-                        } else {
-                            tempFilms.push(el)
-                        }
-                    });
-                    const tempFilterMovies = [];
-                    currentUserData.filterMovies.forEach(el => {
-                        if (el.id === item.id) {
-                            tempFilterMovies.push(Object.assign({}, el, {
-                                saved: true
-                            }))
-                        } else {
-                            tempFilterMovies.push(el)
-                        }
-                    });
-                    const tempStaticMovies = [];
-                    currentUserData.staticMovies.forEach(el => {
-                        if (el.id === item.id) {
-                            tempStaticMovies.push(Object.assign({}, el, {
-                                saved: true
-                            }))
-                        } else {
-                            tempStaticMovies.push(el)
-                        }
-                    });
+                currentUserData.films.forEach(el => {
+                    if (el.id === item.id) {
+                        tempFilms.push(Object.assign({}, el, {
+                            saved: true
+                        }))
+                    } else {
+                        tempFilms.push(el)
+                    }
+                });
+                const tempFilterMovies = [];
+                currentUserData.filterMovies.forEach(el => {
+                    if (el.id === item.id) {
+                        tempFilterMovies.push(Object.assign({}, el, {
+                            saved: true
+                        }))
+                    } else {
+                        tempFilterMovies.push(el)
+                    }
+                });
+                const tempStaticMovies = [];
+                currentUserData.staticMovies.forEach(el => {
+                    if (el.id === item.id) {
+                        tempStaticMovies.push(Object.assign({}, el, {
+                            saved: true
+                        }))
+                    } else {
+                        tempStaticMovies.push(el)
+                    }
+                });
 
-                    setCurrentUserData(oldUserData => Object.assign({}, oldUserData, {
-                        userFilms: tempArr,
-                        films: tempFilms,
-                        filterMovies: tempFilterMovies,
-                        staticMovies: tempStaticMovies
-                    }));
+                setCurrentUserData(oldUserData => Object.assign({}, oldUserData, {
+                    userFilms: tempArr,
+                    films: tempFilms,
+                    filterMovies: tempFilterMovies,
+                    staticMovies: tempStaticMovies
+                }));
+            })
+            .catch(err => {
+                setIsErrorPopupOpen(true);
+                setPopupErrorMessage(`УПС произошла ошибка ${err} введите корректные данные`);
+            })
+    }
+
+    function deleteMovieTemp(item, e) {
+        const tempArrayId = currentUserData.userFilms.filter(el => {
+            return el.movieId === item.id
+        })
+        console.log(`tempArrayId[0]._id ${tempArrayId[0]._id}`);
+        mainApi.removeMovie(localStorage.getItem("token"),tempArrayId[0]._id)
+            .then(res => {
+                e.target.innerText = "Сохранить";
+                e.target.classList.remove('moviescard__button_selected');
+                const tempArr = [...currentUserData.userFilms].filter(el => {
+                    return el._id !== tempArrayId[0]._id
                 })
-                .catch(err => {
-                    setIsErrorPopupOpen(true);
-                    setPopupErrorMessage(`УПС произошла ошибка ${err} введите корректные данные`);
-                })
-        }
+
+                const tempFilms = [];
+                currentUserData.films.forEach(el => {
+                    if (el.id === tempArrayId[0].movieId) {
+                        tempFilms.push(Object.assign({}, el, {
+                            saved: false
+                        }))
+                    } else {
+                        tempFilms.push(el)
+                    }
+                });
+                const tempFilterMovies = [];
+                currentUserData.filterMovies.forEach(el => {
+                    if (el.id === tempArrayId[0].movieId) {
+                        tempFilterMovies.push(Object.assign({}, el, {
+                            saved: false
+                        }))
+                    } else {
+                        tempFilterMovies.push(el)
+                    }
+                });
+                const tempStaticMovies = [];
+                currentUserData.staticMovies.forEach(el => {
+                    if (el.id === tempArrayId[0].movieId) {
+                        tempStaticMovies.push(Object.assign({}, el, {
+                            saved: false
+                        }))
+                    } else {
+                        tempStaticMovies.push(el)
+                    }
+                });
+
+                setCurrentUserData(oldUserData => Object.assign({}, oldUserData, {
+                    userFilms: tempArr,
+                    films: tempFilms,
+                    filterMovies: tempFilterMovies,
+                    staticMovies: tempStaticMovies
+                }));
+
+            })
+            .catch(err => {
+                setIsErrorPopupOpen(true);
+                setPopupErrorMessage(`УПС произошла ошибка ${err} введите корректные данные`);
+            })
     }
 
     function deleteMovie(item) {
@@ -278,6 +331,7 @@ function App() {
                 <ProtectedRoute path="/movies"
                                 isLoggedIn={isLoggedIn}
                                 onSaveMovie={saveMovie}
+                                onDeleteMovie={deleteMovieTemp}
                                 component={Movies}
                 />
                 <ProtectedRoute path="/saved-movies"

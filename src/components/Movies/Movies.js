@@ -127,7 +127,7 @@ function Movies(props) {
                 movies.length > 0
                     ?
                         <>
-                            <MoviesCardList movies={movies} from={'Movies'} onSaveMovie={props.onSaveMovie}/>
+                            <MoviesCardList movies={movies} from={'Movies'} onDeleteMovie={props.onDeleteMovie} onSaveMovie={props.onSaveMovie}/>
                             {moreButtonVisible ?
                                 <button className={'movies__more'} onClick={handleMoreClick}>Ещё</button>
                                 :

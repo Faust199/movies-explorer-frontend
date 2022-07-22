@@ -7,7 +7,7 @@ function MoviesCardList(props) {
     return (
         <div className={'moviescardlist'}>
             {props.movies.map((item) => (
-                <MoviesCard item={item} onSaveMovie={props.onSaveMovie} from = {props.from} saved={item.saved} key={props.from === 'Movies' ? item.id : item._id} onDeleteMovie={props.onDeleteMovie}/>
+                <MoviesCard item={item} onSaveMovie={props.onSaveMovie} onDeleteMovie={props.onDeleteMovie} from = {props.from} saved={item.saved} key={props.from === 'Movies' ? item.id : item._id} onDeleteMovie={props.onDeleteMovie}/>
             ))}
         </div>
     );

@@ -19,7 +19,14 @@ function MoviesCard(props) {
          if (props.from === 'SavedMovies') {
              props.onDeleteMovie(props.item);
         } else {
-             props.onSaveMovie(props.item, e)
+             let isSelected = e.target.classList.contains('moviescard__button_selected');
+             console.log(`isSelected... ${isSelected}`);
+             if (isSelected) {
+                 console.log(`deleting...`)
+                 props.onDeleteMovie(props.item, e)
+             } else {
+                 props.onSaveMovie(props.item, e)
+             }
         }
     }
 

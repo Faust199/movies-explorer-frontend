@@ -14,6 +14,7 @@ function SavedMovies(props) {
     const [searchContent, setSearchContent] = React.useState('');
 
     React.useEffect(() => {
+        console.log(`userData.userFilms ${userData.userFilms.length}`);
         setMovies(userData.userFilms);
     },[userData]);
 
