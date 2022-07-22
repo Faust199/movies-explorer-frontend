@@ -24,9 +24,16 @@ function Movies(props) {
     setMoreButtonItemsCounter();
 
     React.useEffect(() => {
+
         window.addEventListener('resize', () => {
             setMoreButtonItemsCounter();
         })
+
+        return () => {
+            window.removeEventListener('resize',() => {
+                setMoreButtonItemsCounter();
+            });
+        };
     });
 
     function findMovies(searchText) {

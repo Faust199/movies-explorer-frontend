@@ -1,5 +1,5 @@
 import './App.css';
-import {Route, Switch, useHistory, Redirect} from 'react-router-dom';
+import {Route, Switch, useHistory} from 'react-router-dom';
 import React from "react";
 import Main from "../Main/Main"
 import Login from "../Login/Login";
@@ -97,7 +97,6 @@ function App() {
     function getSavedMovies(token, user) {
         mainApi.getMovies(token)
             .then(res => {
-                console.log(`res ${res}`)
                 setCurrentUserData({
                     user: user,
                     films: [],
@@ -174,7 +173,6 @@ function App() {
         const tempArrayId = currentUserData.userFilms.filter(el => {
             return el.movieId === item.id
         })
-        console.log(`tempArrayId[0]._id ${tempArrayId[0]._id}`);
         mainApi.removeMovie(localStorage.getItem("token"),tempArrayId[0]._id)
             .then(res => {
                 e.target.innerText = "Сохранить";
