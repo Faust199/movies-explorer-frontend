@@ -8,6 +8,7 @@ import Movies from "../Movies/Movies";
 import Profile from "../Profile/Profile";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
+import SuccessPopup from "../SuccessPopup/SuccessPopup"
 import ProtectedRoute from "../Routes/ProtectedRoute";
 
 import { CurrentUserDataContext } from "../../contexts/CurrentUserDataContext";
@@ -17,7 +18,9 @@ function App() {
 
     const history = useHistory();
     const [isErrorPopupOpen, setIsErrorPopupOpen] = React.useState(false);
+    const [isSuccessPopupOpen, setIsSuccessPopupOpen] = React.useState(false);
     const [popupErrorMessage, setPopupErrorMessage] = React.useState('');
+    const [popupSuccessMessage, setPopupSuccessMessage] = React.useState('');
     const [currentUserData, setCurrentUserData] = React.useState({});
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
@@ -232,24 +235,35 @@ function App() {
     }
 
     function handleUserUpdate(name, email) {
-        mainApi.updateUser(localStorage.getItem("token"), name, email)
-            .then(res => {
-                setCurrentUserData(prevUserData => (
-                    {
-                        ...prevUserData,
-                        user: res.user
-                    }
-                ));
-                history.push('/movies');
-            })
-            .catch(err => {
-                setIsErrorPopupOpen(true);
-                setPopupErrorMessage(`УПС произошла ошибка ${err} введите корректные данные`);
-            });
+        if (currentUserData.user.name !== name || currentUserData.user.email !== email) {
+            mainApi.updateUser(localStorage.getItem("token"), name, email)
+                .then(res => {
+                    setCurrentUserData(prevUserData => (
+                        {
+                            ...prevUserData,
+                            user: res.user
+                        }
+                    ));
+                    setIsSuccessPopupOpen(true);
+                    setPopupSuccessMessage(`Вы успешно обновили информацию`);
+                    history.push('/movies');
+                })
+                .catch(err => {
+                    setIsErrorPopupOpen(true);
+                    setPopupErrorMessage(`УПС произошла ошибка ${err} введите корректные данные`);
+                });
+        } else {
+            setIsErrorPopupOpen(true);
+            setPopupErrorMessage(`Внесите данные для обновления`);
+        }
     }
 
     function closeErrorPopup() {
         setIsErrorPopupOpen(false);
+    }
+
+    function closeSuccessPopup() {
+        setIsSuccessPopupOpen(false);
     }
 
     return (
@@ -287,6 +301,11 @@ function App() {
                 onClose={closeErrorPopup}
                 isOpen={isErrorPopupOpen}
                 errorMessage={popupErrorMessage}
+            />
+            <SuccessPopup
+                onClose={closeSuccessPopup}
+                isOpen={isSuccessPopupOpen}
+                successMessage={popupSuccessMessage}
             />
         </CurrentUserDataContext.Provider>
   );

@@ -64,9 +64,9 @@ function Movies(props) {
         userData.moreButtonVisible = true;
         const filterArray = res.filter(el => {
             if (isSelected === false) {
-                return el.nameRU.includes(searchText);
+                return el.nameRU.toLowerCase().includes(searchText.toLowerCase());
             } else {
-                return el.duration < 40 && el.nameRU.includes(searchText);
+                return el.duration < 40 && el.nameRU.toLowerCase().includes(searchText.toLowerCase());
             }
         });
         const tempArray = [];

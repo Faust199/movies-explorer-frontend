@@ -31,13 +31,13 @@ function SavedMovies(props) {
         setMovies(userData.userFilms.filter(el => {
             if (isSelected === false) {
                 if (searchText.length > 0) {
-                    return el.nameRU.includes(searchText);
+                    return el.nameRU.toLowerCase().includes(searchText.toLowerCase());
                 } else {
                     return el;
                 }
             } else {
                 if (searchText.length > 0) {
-                    return el.duration < 40 && el.nameRU.includes(searchText);
+                    return el.duration < 40 && el.nameRU.toLowerCase().includes(searchText.toLowerCase());
                 } else {
                     return el.duration < 40;
                 }
