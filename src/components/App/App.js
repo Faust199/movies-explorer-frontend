@@ -25,35 +25,37 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
     React.useEffect(() => {
-        mainApi.getUser(localStorage.getItem("token"))
-            .then(res => {
-                const user = res.user;
-                mainApi.getMovies(localStorage.getItem("token"))
-                    .then(res => {
-                        setCurrentUserData({
-                            user: user,
-                            films: [],
-                            userFilms: res.movies,
-                            searchString: '',
-                            filter: false,
-                            staticMovies: [],
-                            filterMovies: [],
-                            moreButtonVisible: false
-                        });
-                        setIsLoggedIn(true);
-                        history.push("/movies");
-                    })
-                    .catch(err => {
-                        localStorage.removeItem("token");
-                        setIsLoggedIn(false);
-                        history.push('/')
-                    })
-            })
-            .catch(err => {
-                localStorage.removeItem("token");
-                setIsLoggedIn(false);
-                history.push('/')
-            })
+        if (localStorage.getItem("token")) {
+            mainApi.getUser(localStorage.getItem("token"))
+                .then(res => {
+                    const user = res.user;
+                    mainApi.getMovies(localStorage.getItem("token"))
+                        .then(res => {
+                            setCurrentUserData({
+                                user: user,
+                                films: [],
+                                userFilms: res.movies,
+                                searchString: '',
+                                filter: false,
+                                staticMovies: [],
+                                filterMovies: [],
+                                moreButtonVisible: false
+                            });
+                            setIsLoggedIn(true);
+                            history.push("/movies");
+                        })
+                        .catch(err => {
+                            localStorage.removeItem("token");
+                            setIsLoggedIn(false);
+                            history.push('/')
+                        })
+                })
+                .catch(err => {
+                    localStorage.removeItem("token");
+                    setIsLoggedIn(false);
+                    history.push('/')
+                })
+        }
     }, []);
 
     function handleSignUpClick(password, email, firstName) {
